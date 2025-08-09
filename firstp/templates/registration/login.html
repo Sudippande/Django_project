@@ -1,6 +1,38 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Login</h2>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Password</label>
+                {{ form.password }}
+            </div>
+
+            <button class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <p class="mt-3 text-center">
+            Don't have an account? 
+            <a href="{% url 'register' %}">Register here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+
+{% comment %} {% extends "layout.html" %}
+
+{% block content %}
 <h2>Login Form <h2>
 <form method="post">
 {% csrf_token %}
@@ -9,4 +41,5 @@
 </form>
 
 <p>Don't have an account ? <a href="{% url "register" %}">Register here</a></p>
-{% endblock %}
+{% endblock %}  {% endcomment %}
+

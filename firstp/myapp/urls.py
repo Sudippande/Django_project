@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    # path('',views.home ,name='index.html'),
+    # path('',views.home ,name='home'),
 
     path('myapp/', views.tweet_list, name='myapp_home'),
 
@@ -16,5 +16,7 @@ urlpatterns = [
     path('<int:tweet_id>/delete/',views.tweet_delete ,name='tweet_delete'),
 
     path('register/',views.register ,name='register'),
+
+   path('search/', views.search_tweets_by_user, name='search_tweets_by_user'), 
     
 ] 

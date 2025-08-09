@@ -1,4 +1,42 @@
 {% extends "layout.html" %}
+{% block title %}Lets Tweet{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">
+                        {% if form.instance.pk %} Edit Tweet {% else %} Create Tweet {% endif %}
+                    </h4>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <div class="d-grid gap-2 mt-3">
+                            <button class="btn btn-warning" type="submit">
+                                {% if form.instance.pk %} Update Tweet {% else %} Post Tweet {% endif %}
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-3">
+                        <a href="{% url 'tweet_list' %}" class="btn btn-secondary">Back to Tweets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+{% comment %} {% extends "layout.html" %}
 
 {% block title %}Lets Tweet{% endblock %}
 
@@ -19,4 +57,4 @@
     <a href="{% url "tweet_list" %}">Back to Tweet</a>
 </h2>
 
-{% endblock %}
+{% endblock %} {% endcomment %}

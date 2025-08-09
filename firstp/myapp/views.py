@@ -4,12 +4,37 @@ from .forms import TweetForm, UserRegistrationForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.db.models import Q
 #like session jsare security add garna we can use deco to protect the routes
 # Create your views here.
 
 
 def home(request):
     return render(request,'index.html')
+
+def search_tweets_by_user(request):
+    query = request.GET.get('q')
+    user = None
+    tweets = []
+
+    if query:
+        # Try to find a user by username (case-insensitive)
+        user = User.objects.filter(username__iexact=query).first()
+        if user:
+            # Get all tweets by this user
+            tweets = Tweet.objects.filter(user=user).order_by('-created_at')
+        else:
+            # No exact username found; optionally show no results or partial matches
+            tweets = []
+    
+    return render(request, 'search_results.html', {
+        'user': user,
+        'tweets': tweets,
+        'query': query,
+    })
+
+
 
 def tweet_list(request):
     

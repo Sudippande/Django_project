@@ -1,4 +1,59 @@
+
 {% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Create an Account</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="text-danger small">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger small">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="text-danger small">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="text-danger small">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button class="btn btn-primary w-100" type="submit">Register</button>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <small>Already have an account? <a href="{% url 'login' %}">Login here</a></small>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% comment %} {% extends "layout.html" %}
 
 {% block content %}
 <h2>Register From <h2>
@@ -8,4 +63,6 @@
     <button class="btn btn-primary">Resister</button>
 </form>
 <p>If already registerd then <a href="{% url "login" %}">Login Here</a></p>
-{% endblock %}
+{% endblock %} {% endcomment %}
+
+

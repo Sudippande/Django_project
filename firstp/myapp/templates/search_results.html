@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if user %}
+
+        <h4>Tweets by {{ user.username }}</h4>
+        <div class="row">
+            {% for tweet in tweets %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        {% if tweet.photo %}
+                        <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Photo">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text">{{ tweet.text|linebreaksbr }}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Posted on {{ tweet.created_at|date:"M d, Y H:i" }}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No tweets found for this user.</p>
+            {% endfor %}
+        </div>
+
+    {% elif query %}
+        <div class="alert alert-warning" role="alert">
+            No user found with username "{{ query }}".
+        </div>
+    {% else %}
+        <p>Use the search bar above to find users.</p>
+    {% endif %}
+</div>
+{% endblock %}
